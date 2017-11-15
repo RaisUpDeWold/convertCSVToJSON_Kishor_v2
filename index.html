@@ -6,40 +6,71 @@
         <title>Convert Multiple CSV File to JSON v2</title>
     </head>
     <body>
+        <p>Select KISAIM.csv File : <input id="kisaimPicker" type="file" /></p>
+        <p>Select CAU-ORGANISATIONS.csv File : <input id="cauOrganisationsPicker" type="file" /></p>
         <p>Select KISCOURSE.csv File : <input id="kisCoursePicker" type="file" /></p>
         <p>Select CAU-COURSES-FACTS.csv File : <input id="cauCoursesFactsPicker" type="file" /></p>
-        <p>Select CAU-ORGANISATIONS.csv File : <input id="cauOrganisationsPicker" type="file" /></p>
         <p>Select COURSESTAGE.csv File : <input id="courseStagePicker" type="file" /></p>
-        <p>Select KISAIM.csv File : <input id="kisaimPicker" type="file" /></p>
+        <p>Start Index : <input id="startIndexInput" type="text" /></p>
+        <p>End Index : <input id="endIndexInput" type="text" /></p>
         <p><input type="button" value="Generate JSON" onclick="generateJSON()" /></p>
 
         <output id="out"></output>
         
         <script type="text/javascript">
-            /*
-            uniName - "Uni/College"
-            courseName - "Course"
-            courseCode - "UCAS Code"
-            courseQualification - "Qual."
-            courseDuration - "Years"
-            courseStudyMode - "Mode"
-            courseTypicalOffer - "Typical Offer"
-            courseStudyAbroad - "Study Abroad"
-            courseSandwich - "Work Placement"
-            uniNationalRanking - "UK Uni Ranking"
-            uniWorldRanking - "World Uni Ranking"
-            uniGroup - "Group"
-            courseExams - "Exam%"
-            courseCoursework - "CourseWork%"
-            courseContact - "Contact%"
-            courseSuccessScore - "Success"
-            courseSatisfactionLevel - "Satisfaction"
-            courseEntryStandardsLevel - "Entry Standards"
-            courseCauRating - "CAU Rating"
-            */
-            var mainJSON = {};
+            var mainJSON = {}, KISAIM = {};
+
+            function addTextNode(jsonText) {
+                var textNode = document.createElement('article');
+                textNode.innerHTML = jsonText;
+                document.getElementById('out').appendChild(textNode);
+            }
 
             function generateJSON() {
+                var startIndex = parseInt(document.getElementById('startIndexInput').value, 10);
+                var endIndex = parseInt(document.getElementById('endIndexInput').value, 10);
+
+                document.getElementById('out').innerHTML = '';
+                var UKPRN = Object.keys(mainJSON);
+                startIndex = (startIndex >= UKPRN.length) ? UKPRN.length : startIndex;
+                endIndex = (endIndex >= UKPRN.length) ? UKPRN.length : endIndex;
+                for (var i = startIndex; i < endIndex; i ++) {
+                    var KISCOURSEID = Object.keys(mainJSON[UKPRN[i]]);
+                    for (var j = 0; j < KISCOURSEID.length; j ++) {
+                        if (KISCOURSEID[j] == 'uniName') continue;
+                        if (KISCOURSEID[j] == 'uniNationalRanking') continue;
+                        if (KISCOURSEID[j] == 'uniWorldRanking') continue;
+                        if (KISCOURSEID[j] == 'uniGroup') continue;
+
+                        var STUDYMODE = Object.keys(mainJSON[UKPRN[i]][KISCOURSEID[j]]);
+                        for (var k = 0; k < STUDYMODE.length; k ++) {
+                            addTextNode(
+                                '{' + '<br>' +
+                                '"uniName":"' + mainJSON[UKPRN[i]]['uniName'] + '",' + '<br>' +
+                                '"courseName":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseName'] + '",' + '<br>' +
+                                '"courseCode":"' + '",' + '<br>' +
+                                '"courseQualification":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseQualification'] + '",' + '<br>' +
+                                '"courseDuration":"' + '",' + '<br>' +
+                                '"courseStudyMode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyMode'] + '",' + '<br>' +
+                                '"courseTypicaloffer":"' + '",' + '<br>' + 
+                                '"courseStudyAbroad":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyAbroad'] + '",' + '<br>' +
+                                '"courseSandwich":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSandwich'] + '",' + '<br>' + 
+                                '"uniNationalRanking":"' + mainJSON[UKPRN[i]]['uniNationalRanking'] + '",' + '<br>' +
+                                '"uniWorldRanking":"' + mainJSON[UKPRN[i]]['uniWorldRanking'] + '",' + '<br>' +
+                                '"uniGroup":"' + mainJSON[UKPRN[i]]['uniGroup'] + '",' + '<br>' +
+                                '"courseExams":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseExams'] + '",' + '<br>' +
+                                '"courseCoursework":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCoursework'] + '",' + '<br>' +
+                                '"courseContact":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseContact'] + '",' + '<br>' +
+                                '"courseSuccessScore":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSuccessScore'] + '",' + '<br>' +
+                                '"courseSatisfactionLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSatisfactionLevel'] + '",' + '<br>' +
+                                '"courseEntryStandardsLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseEntryStandardsLevel'] + '",' + '<br>' +
+                                '"courseCauRating":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCauRating'] + '",' + '<br>' +
+                                '},'
+                            );
+                        }
+                    }
+                }
+                alert('Finished Generating');
             }
             
             function CSVtoArray( strData, strDelimiter ){
@@ -65,10 +96,67 @@
                 return(arrData);
             }
 
+            var kisaimInput = document.getElementById('kisaimPicker');
+            kisaimInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var rows = reader.result.split('\n');
+                    for (var i = 1; i < rows.length; i ++) {
+                        if (!rows[i]) continue;
+                        var rowCols = CSVtoArray(rows[i])[0];
+                        KISAIM[parseInt(rowCols[0], 10)] = rowCols[1];
+                    }
+                    alert('Finished Reading!');
+                };
+                reader.readAsBinaryString(kisaimInput.files[0]);
+            });
+
+            var cauOrganisationsInput = document.getElementById('cauOrganisationsPicker');
+            cauOrganisationsInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var rows = reader.result.split('\n');
+                    for (var i = 1; i < rows.length; i ++) {
+                        var rowCols = CSVtoArray(rows[i])[0];
+                        if (typeof mainJSON[rowCols[0]] == 'undefined') mainJSON[rowCols[0]] = {};
+                        mainJSON[rowCols[0]]['uniName'] = rowCols[1];
+                        //mainJSON[rowCols[0]]['uniShortName'] = rowCols[2];
+                        //mainJSON[rowCols[0]]['uniCode'] = rowCols[3];
+                        mainJSON[rowCols[0]]['uniGroup'] = rowCols[4];
+                        mainJSON[rowCols[0]]['uniNationalRanking'] = rowCols[5];
+                        mainJSON[rowCols[0]]['uniWorldRanking'] = rowCols[6];
+                    }
+                    alert('Finished Reading');
+                };
+                reader.readAsBinaryString(cauOrganisationsInput.files[0]);
+            });
+
             var kisCourseInput = document.getElementById('kisCoursePicker');
             kisCourseInput.addEventListener('change', function () {
                 var reader = new FileReader();
                 reader.onload = function () {
+                    var rows = reader.result.split('\n');
+                    for (var i = 1; i < rows.length; i ++) {
+                        var rowCols = CSVtoArray(rows[i])[0];
+                        if (typeof mainJSON[rowCols[1]] == 'undefined') continue;
+                        if (typeof mainJSON[rowCols[1]][rowCols[16]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]] = {};
+                        if (typeof mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] = {};
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseUrl'] = rowCols[4];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = rowCols[11];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = rowCols[12];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = rowCols[17];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseType'] = rowCols[18];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = rowCols[35];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseName'] = rowCols[39];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = rowCols[47];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualificationCode'] = rowCols[48];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseExams'] = rowCols[49];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseCoursework'] = rowCols[50];
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseContact'] = rowCols[51];
+
+                        if (typeof KISAIM[parseInt(rowCols[48], 10)] == 'undefined') mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualification'] = '';
+                        else mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualification'] = KISAIM[parseInt(rowCols[48], 10)];
+                    }
                     alert('Finished Reading!');
                 };
                 reader.readAsBinaryString(kisCourseInput.files[0]);
@@ -78,31 +166,28 @@
             cauCoursesFactsInput.addEventListener('change', function () {
                 var reader = new FileReader();
                 reader.onload = function () {
+                    var rows = reader.result.split('\n');
+                    for (var i = 1; i < rows.length; i ++) {
+                        var rowCols = CSVtoArray(rows[i])[0];
+                        if (typeof mainJSON[rowCols[0]] == 'undefined') continue;
+                        if (typeof mainJSON[rowCols[0]][rowCols[1]] == 'undefined') continue;
+                        if (typeof mainJSON[rowCols[0]][rowCols[1]][rowCols[2]] == 'undefined') continue;
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionScore'] = rowCols[4];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = rowCols[5];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSuccessScore'] = rowCols[6];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseTypicalOffer'] = rowCols[7];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsScore'] = rowCols[8];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = rowCols[9];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSubjectRankingScore'] = rowCols[10];
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCauRating'] = rowCols[11];
+                    }
                     alert('Finished Reading!');
                 };
                 reader.readAsBinaryString(cauCoursesFactsInput.files[0]);
             });
 
-            var cauOrganisationsInput = document.getElementById('cauOrganisationsInput');
-            cauOrganisationsInput.addEventListener('change', function () {
-                var reader = new FileReader();
-                reader.onload = function() {
-                    alert('Finished Reading');
-                };
-                reader.readAsBinaryString(cauOrganisationsInput.files[0]);
-            });
-
-            var courseStageInput = document.getElementById('courseStagePicker');8888888888888888888888888888888888888888
+            var courseStageInput = document.getElementById('courseStagePicker');
             courseStageInput.addEventListener('change', function () {
-                var reader = new FileReader();
-                reader.onload = function() {
-                    alert('Finished Reading!');
-                };
-                reader.readAsBinaryString(courseStageInput.files[0]);
-            });
-
-            var kisaimInput = document.getElementById('kisaimPicker');
-            kisaimInput.addEventListener('change', function () {
                 var reader = new FileReader();
                 reader.onload = function() {
                     alert('Finished Reading!');
