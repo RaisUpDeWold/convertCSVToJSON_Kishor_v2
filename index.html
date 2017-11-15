@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width" name="viewport">
+        <title>Convert Multiple CSV File to JSON v2</title>
+    </head>
+    <body>
+        <p>Select KISCOURSE.csv File : <input id="kisCoursePicker" type="file" /></p>
+        <p>Select CAU-COURSES-FACTS.csv File : <input id="cauCoursesFactsPicker" type="file" /></p>
+        <p>Select CAU-ORGANISATIONS.csv File : <input id="cauOrganisationsPicker" type="file" /></p>
+        <p>Select COURSESTAGE.csv File : <input id="courseStagePicker" type="file" /></p>
+        <p>Select KISAIM.csv File : <input id="kisaimPicker" type="file" /></p>
+        <p><input type="button" value="Generate JSON" onclick="generateJSON()" /></p>
+
+        <output id="out"></output>
+        
+        <script type="text/javascript">
+            /*
+            uniName - "Uni/College"
+            courseName - "Course"
+            courseCode - "UCAS Code"
+            courseQualification - "Qual."
+            courseDuration - "Years"
+            courseStudyMode - "Mode"
+            courseTypicalOffer - "Typical Offer"
+            courseStudyAbroad - "Study Abroad"
+            courseSandwich - "Work Placement"
+            uniNationalRanking - "UK Uni Ranking"
+            uniWorldRanking - "World Uni Ranking"
+            uniGroup - "Group"
+            courseExams - "Exam%"
+            courseCoursework - "CourseWork%"
+            courseContact - "Contact%"
+            courseSuccessScore - "Success"
+            courseSatisfactionLevel - "Satisfaction"
+            courseEntryStandardsLevel - "Entry Standards"
+            courseCauRating - "CAU Rating"
+            */
+            var mainJSON = {};
+
+            function generateJSON() {
+            }
+            
+            function CSVtoArray( strData, strDelimiter ){
+                strDelimiter = (strDelimiter || ",");
+                var objPattern = new RegExp(
+                    (
+                        "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +  // Delimiters.
+                        "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +         // Quoted fields.
+                        "([^\"\\" + strDelimiter + "\\r\\n]*))"     // Standard fields.
+                    ), "gi"
+                );
+                var arrData = [[]];     // Create an array to hold our data. Give the array a default empty first row.
+                var arrMatches = null;  // Create an array to hold our individual pattern matching groups.
+                while (arrMatches = objPattern.exec(strData)){
+                    var strMatchedDelimiter = arrMatches[1];
+                    if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter){ arrData.push( [] ); }
+                    var strMatchedValue;                    
+                    if (arrMatches[ 2 ]){   // Now that we have our delimiter out of the way, let's check to see which kind of value we captured (quoted or unquoted).
+                        strMatchedValue = arrMatches[ 2 ].replace( new RegExp( "\"\"", "g" ), "\"" );
+                    } else { strMatchedValue = arrMatches[3]; }
+                    arrData[arrData.length - 1].push(strMatchedValue);
+                }
+                return(arrData);
+            }
+
+            var kisCourseInput = document.getElementById('kisCoursePicker');
+            kisCourseInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    alert('Finished Reading!');
+                };
+                reader.readAsBinaryString(kisCourseInput.files[0]);
+            });
+
+            var cauCoursesFactsInput = document.getElementById('cauCoursesFactsPicker');
+            cauCoursesFactsInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    alert('Finished Reading!');
+                };
+                reader.readAsBinaryString(cauCoursesFactsInput.files[0]);
+            });
+
+            var cauOrganisationsInput = document.getElementById('cauOrganisationsInput');
+            cauOrganisationsInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    alert('Finished Reading');
+                };
+                reader.readAsBinaryString(cauOrganisationsInput.files[0]);
+            });
+
+            var courseStageInput = document.getElementById('courseStagePicker');8888888888888888888888888888888888888888
+            courseStageInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    alert('Finished Reading!');
+                };
+                reader.readAsBinaryString(courseStageInput.files[0]);
+            });
+
+            var kisaimInput = document.getElementById('kisaimPicker');
+            kisaimInput.addEventListener('change', function () {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    alert('Finished Reading!');
+                };
+                reader.readAsBinaryString(courseStageInput.files[0]);
+            });
+        </script>
+    </body>
+</html>
