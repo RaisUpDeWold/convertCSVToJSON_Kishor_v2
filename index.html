@@ -157,25 +157,25 @@
                         /*if (rowCols[12] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = 'Not Honours';
                         else if (rowCols[12] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = 'Honours';*/
 
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = rowCols[17];
-                        /*if (rowCols[17] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Not Available';
-                        else if (rowCols[17] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Optional';
-                        else if (rowCols[17] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Compulsory';
-                        else if (rowCols[17] == 3) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Both';*/
+                        //mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = rowCols[17];
+                        if (rowCols[17] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = '';
+                        else if (rowCols[17] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Full Time';
+                        else if (rowCols[17] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Part Time';
+                        else if (rowCols[17] == 3) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Full or Part Time';
 
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseType'] = rowCols[18];
 
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = rowCols[35];
-                        /*if (rowCols[35] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Not Available';
-                        else if (rowCols[35] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Optional';
-                        else if (rowCols[35] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Compulsory';*/
+                        //mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = rowCols[35];
+                        if (rowCols[35] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = '';
+                        else if (rowCols[35] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Sandwich: Optional';
+                        else if (rowCols[35] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Sandwich: Compulsory';
 
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseName'] = rowCols[39] + ' : ' + rowCols[16];
 
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = rowCols[47];
-                        /*if (rowCols[47] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Not Available';
-                        else if (rowCols[47] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Optional';
-                        else if (rowCols[47] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Compulsory';*/
+                        //mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = rowCols[47];
+                        if (rowCols[47] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = '';
+                        else if (rowCols[47] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Year Abroad: Optional';
+                        else if (rowCols[47] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Year Abroad: Compulsory';
 
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualificationCode'] = rowCols[48];
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseExams'] = rowCols[49];
@@ -202,11 +202,31 @@
                         if (typeof mainJSON[rowCols[0]][rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[0]][rowCols[1]][rowCols[2]] == 'undefined') continue;
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionScore'] = rowCols[4];
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = rowCols[5];
+
+                        //mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = rowCols[5];
+                        switch (parseInt(rowCols[5], 10)) {
+                            case 5: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Very High'; break;
+                            case 4: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: High'; break;
+                            case 3: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Medium'; break;
+                            case 2: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Low'; break;
+                            case 1: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Very Low'; break;
+                            default: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = ''; break;
+                        }
+
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSuccessScore'] = rowCols[6];
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseTypicalOffer'] = rowCols[7];
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsScore'] = rowCols[8];
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = rowCols[9];
+
+                        //mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = rowCols[9];
+                        switch (parseInt(rowCols[9], 10)) {
+                            case 5: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Very High'; break;
+                            case 4: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: High'; break;
+                            case 3: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Medium'; break;
+                            case 2: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Low'; break;
+                            case 1: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Very Low'; break;
+                            default: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = ''; break;
+                        }
+
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSubjectRankingScore'] = rowCols[10];
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCauRating'] = rowCols[11];
                     }
