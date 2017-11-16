@@ -145,7 +145,6 @@
                         if (typeof mainJSON[rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[1]][rowCols[16]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]] = {};
                         if (typeof mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] = {};
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseCode'] = rowCols[1] + '-' + rowCols[16] + '-' + rowCols[17];
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseUrl'] = rowCols[4];
                         
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = rowCols[11];
@@ -201,6 +200,7 @@
                         if (typeof mainJSON[rowCols[0]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[0]][rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[0]][rowCols[1]][rowCols[2]] == 'undefined') continue;
+                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCode'] = rowCols[3];
                         mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionScore'] = rowCols[4];
 
                         //mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = rowCols[5];
