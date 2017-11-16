@@ -41,6 +41,8 @@
                         if (KISCOURSEID[j] == 'uniNationalRanking') continue;
                         if (KISCOURSEID[j] == 'uniWorldRanking') continue;
                         if (KISCOURSEID[j] == 'uniGroup') continue;
+                        if (KISCOURSEID[j] == 'uniCode') continue;
+                        if (KISCOURSEID[j] == 'uniShortName') continue;
 
                         var STUDYMODE = Object.keys(mainJSON[UKPRN[i]][KISCOURSEID[j]]);
                         for (var k = 0; k < STUDYMODE.length; k ++) {
@@ -48,11 +50,11 @@
                                 '{' + '<br>' +
                                 '"uniName":"' + mainJSON[UKPRN[i]]['uniName'] + '",' + '<br>' +
                                 '"courseName":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseName'] + '",' + '<br>' +
-                                '"courseCode":"' + '",' + '<br>' +
+                                '"courseCode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCode'] + '",' + '<br>' +
                                 '"courseQualification":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseQualification'] + '",' + '<br>' +
-                                '"courseDuration":"' + '",' + '<br>' +
+                                '"courseDuration":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseDuration'] + '",' + '<br>' +
                                 '"courseStudyMode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyMode'] + '",' + '<br>' +
-                                '"courseTypicaloffer":"' + '",' + '<br>' + 
+                                '"courseTypicalOffer":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseTypicalOffer'] + '",' + '<br>' + 
                                 '"courseStudyAbroad":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyAbroad'] + '",' + '<br>' +
                                 '"courseSandwich":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSandwich'] + '",' + '<br>' + 
                                 '"uniNationalRanking":"' + mainJSON[UKPRN[i]]['uniNationalRanking'] + '",' + '<br>' +
@@ -64,7 +66,7 @@
                                 '"courseSuccessScore":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSuccessScore'] + '",' + '<br>' +
                                 '"courseSatisfactionLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSatisfactionLevel'] + '",' + '<br>' +
                                 '"courseEntryStandardsLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseEntryStandardsLevel'] + '",' + '<br>' +
-                                '"courseCauRating":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCauRating'] + '",' + '<br>' +
+                                '"courseCauRating":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCauRating'] + '"' + '<br>' +
                                 '},'
                             );
                         }
@@ -117,11 +119,12 @@
                 reader.onload = function() {
                     var rows = reader.result.split('\n');
                     for (var i = 1; i < rows.length; i ++) {
+                        if (!rows[i]) continue;
                         var rowCols = CSVtoArray(rows[i])[0];
                         if (typeof mainJSON[rowCols[0]] == 'undefined') mainJSON[rowCols[0]] = {};
                         mainJSON[rowCols[0]]['uniName'] = rowCols[1];
-                        //mainJSON[rowCols[0]]['uniShortName'] = rowCols[2];
-                        //mainJSON[rowCols[0]]['uniCode'] = rowCols[3];
+                        mainJSON[rowCols[0]]['uniShortName'] = rowCols[2];
+                        mainJSON[rowCols[0]]['uniCode'] = rowCols[3];
                         mainJSON[rowCols[0]]['uniGroup'] = rowCols[4];
                         mainJSON[rowCols[0]]['uniNationalRanking'] = rowCols[5];
                         mainJSON[rowCols[0]]['uniWorldRanking'] = rowCols[6];
@@ -137,18 +140,43 @@
                 reader.onload = function () {
                     var rows = reader.result.split('\n');
                     for (var i = 1; i < rows.length; i ++) {
+                        if (!rows[i]) continue;
                         var rowCols = CSVtoArray(rows[i])[0];
                         if (typeof mainJSON[rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[1]][rowCols[16]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]] = {};
                         if (typeof mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] = {};
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseCode'] = rowCols[1] + '-' + rowCols[16] + '-' + rowCols[17];
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseUrl'] = rowCols[4];
+                        
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = rowCols[11];
+                        /*if (rowCols[11] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = 'Not Available';
+                        else if (rowCols[11] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = 'Optional';
+                        else if (rowCols[11] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = 'Compulsory';*/
+                        
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = rowCols[12];
+                        /*if (rowCols[12] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = 'Not Honours';
+                        else if (rowCols[12] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = 'Honours';*/
+
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = rowCols[17];
+                        /*if (rowCols[17] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Not Available';
+                        else if (rowCols[17] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Optional';
+                        else if (rowCols[17] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Compulsory';
+                        else if (rowCols[17] == 3) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Both';*/
+
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseType'] = rowCols[18];
+
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = rowCols[35];
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseName'] = rowCols[39];
+                        /*if (rowCols[35] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Not Available';
+                        else if (rowCols[35] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Optional';
+                        else if (rowCols[35] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Compulsory';*/
+
+                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseName'] = rowCols[39] + ' : ' + rowCols[16];
+
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = rowCols[47];
+                        /*if (rowCols[47] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Not Available';
+                        else if (rowCols[47] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Optional';
+                        else if (rowCols[47] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Compulsory';*/
+
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualificationCode'] = rowCols[48];
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseExams'] = rowCols[49];
                         mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseCoursework'] = rowCols[50];
@@ -168,6 +196,7 @@
                 reader.onload = function () {
                     var rows = reader.result.split('\n');
                     for (var i = 1; i < rows.length; i ++) {
+                        if (!rows[i]) continue;
                         var rowCols = CSVtoArray(rows[i])[0];
                         if (typeof mainJSON[rowCols[0]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[0]][rowCols[1]] == 'undefined') continue;
@@ -190,6 +219,19 @@
             courseStageInput.addEventListener('change', function () {
                 var reader = new FileReader();
                 reader.onload = function() {
+                    var rows = reader.result.split('\n');
+                    for (var i = 1; i < rows.length; i ++) {
+                        if (!rows[i]) continue;
+                        var rowCols = CSVtoArray(rows[i])[0];
+                        if (typeof mainJSON[rowCols[1]] == 'undefined') continue;
+                        if (typeof mainJSON[rowCols[1]][rowCols[2]] == 'undefined') continue;
+                        if (typeof mainJSON[rowCols[1]][rowCols[2]][rowCols[3]] == 'undefined') continue;
+                        if (typeof mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] == 'undefined') {
+                            mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] = parseInt(rowCols[11], 10);
+                        } else if (mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] < parseInt(rowCols[11], 10)) {
+                            mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] = parseInt(rowCols[11], 10);
+                        }
+                    }
                     alert('Finished Reading!');
                 };
                 reader.readAsBinaryString(courseStageInput.files[0]);
