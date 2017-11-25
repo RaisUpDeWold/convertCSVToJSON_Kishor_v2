@@ -46,29 +46,49 @@
 
                         var STUDYMODE = Object.keys(mainJSON[UKPRN[i]][KISCOURSEID[j]]);
                         for (var k = 0; k < STUDYMODE.length; k ++) {
-                            addTextNode(
-                                '{' + '<br>' +
-                                '"uniName":"' + mainJSON[UKPRN[i]]['uniName'] + '",' + '<br>' +
-                                '"courseName":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseName'] + '",' + '<br>' +
-                                '"courseCode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCode'] + '",' + '<br>' +
-                                '"courseQualification":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseQualification'] + '",' + '<br>' +
-                                '"courseDuration":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseDuration'] + '",' + '<br>' +
-                                '"courseStudyMode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyMode'] + '",' + '<br>' +
-                                '"courseTypicalOffer":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseTypicalOffer'] + '",' + '<br>' + 
-                                '"courseStudyAbroad":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyAbroad'] + '",' + '<br>' +
-                                '"courseSandwich":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSandwich'] + '",' + '<br>' + 
-                                '"uniNationalRanking":"' + mainJSON[UKPRN[i]]['uniNationalRanking'] + '",' + '<br>' +
-                                '"uniWorldRanking":"' + mainJSON[UKPRN[i]]['uniWorldRanking'] + '",' + '<br>' +
-                                '"uniGroup":"' + mainJSON[UKPRN[i]]['uniGroup'] + '",' + '<br>' +
-                                '"courseExams":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseExams'] + '",' + '<br>' +
-                                '"courseCoursework":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCoursework'] + '",' + '<br>' +
-                                '"courseContact":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseContact'] + '",' + '<br>' +
-                                '"courseSuccessScore":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSuccessScore'] + '",' + '<br>' +
-                                '"courseSatisfactionLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSatisfactionLevel'] + '",' + '<br>' +
-                                '"courseEntryStandardsLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseEntryStandardsLevel'] + '",' + '<br>' +
-                                '"courseCauRating":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCauRating'] + '"' + '<br>' +
-                                '},'
-                            );
+                            var textNode = "{" + "<br>";
+                            if (typeof mainJSON[UKPRN[i]]['uniName'] != "undefined")
+                                textNode += '"uniName":"' + mainJSON[UKPRN[i]]['uniName'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseName'] != "undefined")
+                                textNode += '"courseName":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseName'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseUrl'] != "undefined")
+                                textNode += '"courseUrl":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseUrl'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCode'] != "undefined")
+                                textNode += '"courseCode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCode'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseQualification'] != "undefined")
+                                textNode += '"courseQualification":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseQualification'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseDuration'] != "undefined")
+                                textNode += '"courseDuration":' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseDuration'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyMode'] != "undefined")
+                                textNode += '"courseStudyMode":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyMode'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseTypicalOffer'] != "undefined")
+                                textNode += '"courseTypicalOffer":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseTypicalOffer'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyAbroad'] != "undefined")
+                                textNode += '"courseStudyAbroad":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseStudyAbroad'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSandwich'] != "undefined")
+                                textNode += '"courseSandwich":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSandwich'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]]['uniNationalRanking'] != "undefined")
+                                textNode += '"uniNationalRanking":' + mainJSON[UKPRN[i]]['uniNationalRanking'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]]['uniWorldRanking'] != "undefined")
+                                textNode += '"uniWorldRanking":' + mainJSON[UKPRN[i]]['uniWorldRanking'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]]['uniGroup'] != "undefined")
+                                textNode += '"uniGroup":"' + mainJSON[UKPRN[i]]['uniGroup'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseExams'] != "undefined")
+                                textNode += '"courseExams":' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseExams'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCoursework'] != "undefined")
+                                textNode += '"courseCoursework":' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCoursework'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseContact'] != "undefined")
+                                textNode += '"courseContact":' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseContact'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSuccessScore'] != "undefined")
+                                textNode += '"courseSuccessScore":' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSuccessScore'] + ',' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSatisfactionLevel'] != "undefined")
+                                textNode += '"courseSatisfactionLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseSatisfactionLevel'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseEntryStandardsLevel'] != "undefined")
+                                textNode += '"courseEntryStandardsLevel":"' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseEntryStandardsLevel'] + '",' + '<br>';
+                            if (typeof mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCauRating'] != "undefined")
+                                textNode += '"courseCauRating":' + mainJSON[UKPRN[i]][KISCOURSEID[j]][STUDYMODE[k]]['courseCauRating'] + '' + '<br>';
+                            textNode += "},";
+                            addTextNode( textNode );
                         }
                     }
                 }
@@ -106,7 +126,9 @@
                     for (var i = 1; i < rows.length; i ++) {
                         if (!rows[i]) continue;
                         var rowCols = CSVtoArray(rows[i])[0];
-                        KISAIM[parseInt(rowCols[0], 10)] = rowCols[1];
+                        if (rowCols[0] == "" || typeof rowCols[0] == "undefined") continue;
+                        if (rowCols[1] == "" || typeof rowCols[1] == "undefined") continue;
+                        KISAIM[Number(rowCols[0])] = String(rowCols[1]);
                     }
                     alert('Finished Reading!');
                 };
@@ -121,13 +143,18 @@
                     for (var i = 1; i < rows.length; i ++) {
                         if (!rows[i]) continue;
                         var rowCols = CSVtoArray(rows[i])[0];
+                        
+                        if (typeof rowCols[0] == "undefined" || rowCols[0] == "") continue;
+                        if (typeof rowCols[1] == "undefined" || rowCols[1] == "") continue;
+                        rowCols[0] = String(rowCols[0]);
+
                         if (typeof mainJSON[rowCols[0]] == 'undefined') mainJSON[rowCols[0]] = {};
-                        mainJSON[rowCols[0]]['uniName'] = rowCols[1];
-                        mainJSON[rowCols[0]]['uniShortName'] = rowCols[2];
-                        mainJSON[rowCols[0]]['uniCode'] = rowCols[3];
-                        mainJSON[rowCols[0]]['uniGroup'] = rowCols[4];
-                        mainJSON[rowCols[0]]['uniNationalRanking'] = rowCols[5];
-                        mainJSON[rowCols[0]]['uniWorldRanking'] = rowCols[6];
+                        mainJSON[rowCols[0]]['uniName'] = String(rowCols[1]);
+                        if (typeof rowCols[2] != "undefined" && rowCols[2] != "") mainJSON[rowCols[0]]['uniShortName'] = String(rowCols[2]);
+                        if (typeof rowCols[3] != "undefined" && rowCols[3] != "") mainJSON[rowCols[0]]['uniCode'] = String(rowCols[3]);
+                        if (typeof rowCols[4] != "undefined" && rowCols[4] != "") mainJSON[rowCols[0]]['uniGroup'] = String(rowCols[4]);
+                        if (rowCols[5] != "" && typeof rowCols[5] != "undefined") mainJSON[rowCols[0]]['uniNationalRanking'] = Number(rowCols[5]);
+                        if (rowCols[6] != "" && typeof rowCols[6] != "undefined") mainJSON[rowCols[0]]['uniWorldRanking'] = Number(rowCols[6]);
                     }
                     alert('Finished Reading');
                 };
@@ -141,48 +168,62 @@
                     var rows = reader.result.split('\n');
                     for (var i = 1; i < rows.length; i ++) {
                         if (!rows[i]) continue;
+
                         var rowCols = CSVtoArray(rows[i])[0];
                         if (typeof mainJSON[rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[1]][rowCols[16]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]] = {};
                         if (typeof mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] == 'undefined') mainJSON[rowCols[1]][rowCols[16]][rowCols[17]] = {};
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseUrl'] = rowCols[4];
+
+                        if (typeof rowCols[4] != "undefined" && rowCols[4] != "")
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseUrl'] = String(rowCols[4]);
                         
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = rowCols[11];
-                        /*if (rowCols[11] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = 'Not Available';
-                        else if (rowCols[11] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = 'Optional';
-                        else if (rowCols[11] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseFoundation'] = 'Compulsory';*/
+                        switch (Number(rowCols[11])) {
+                            case 0: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseFoundation"] = "Foundation: Not Available"; break;
+                            case 1: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseFoundation"] = "Foundation: Optional"; break;
+                            case 2: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseFoundation"] = "Foundation: Compulsory"; break;
+                            default: break;
+                        }
                         
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = rowCols[12];
-                        /*if (rowCols[12] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = 'Not Honours';
-                        else if (rowCols[12] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseHonours'] = 'Honours';*/
+                        switch (Number(rowCols[12])) {
+                            case 0: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseHonours"] = "Not Honours"; break;
+                            case 1: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseHonours"] = "Honours"; break;
+                            default: break;
+                        }
 
-                        //mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = rowCols[17];
-                        if (rowCols[17] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = '';
-                        else if (rowCols[17] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Full Time';
-                        else if (rowCols[17] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Part Time';
-                        else if (rowCols[17] == 3) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyMode'] = 'Full or Part Time';
+                        switch (Number(rowCols[17])) {
+                            case 1: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseStudyMode"] = "Full Time"; break;
+                            case 2: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseStudyMode"] = "Part Time"; break;
+                            case 3: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseStudyMode"] = "Full or Part Time"; break;
+                            default: break;
+                        }
 
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseType'] = rowCols[18];
+                        if (rowCols[18] != "" && typeof rowCols[18] != "undefined")
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseType'] = Number(rowCols[18]);
 
-                        //mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = rowCols[35];
-                        if (rowCols[35] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = '';
-                        else if (rowCols[35] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Sandwich: Optional';
-                        else if (rowCols[35] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseSandwich'] = 'Sandwich: Compulsory';
+                        switch (Number(rowCols[35])) {
+                            case 1: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseSandwich"] = "Sandwich: Optional"; break;
+                            case 2: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseSandwich"] = "Sandwich: Compulsory"; break;
+                            default: break;
+                        }
 
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseName'] = rowCols[39];
+                        if (typeof rowCols[39] != "undefined" && rowCols[39] != "")
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseName'] = String(rowCols[39]);
 
-                        //mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = rowCols[47];
-                        if (rowCols[47] == 0) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = '';
-                        else if (rowCols[47] == 1) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Year Abroad: Optional';
-                        else if (rowCols[47] == 2) mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseStudyAbroad'] = 'Year Abroad: Compulsory';
+                        switch (Number(rowCols[47])) {
+                            case 1: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseStudyAbroad"] = "Year Abroad: Optional"; break;
+                            case 2: mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]["courseStudyAbroad"] = "Year Abroad: Compulsory"; break;
+                            default: break;
+                        }
 
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualificationCode'] = rowCols[48];
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseExams'] = rowCols[49];
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseCoursework'] = rowCols[50];
-                        mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseContact'] = rowCols[51];
-
-                        if (typeof KISAIM[parseInt(rowCols[48], 10)] == 'undefined') mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualification'] = '';
-                        else mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualification'] = KISAIM[parseInt(rowCols[48], 10)];
+                        if (rowCols[48] != "" && typeof rowCols[48] != "undefined" && typeof KISAIM[Number(rowCols[48])] != "undefined") {
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseQualification'] = KISAIM[Number(rowCols[48])];
+                        }
+                        if (rowCols[49] != "" && typeof rowCols[49] != "undefined")
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseExams'] = Number(rowCols[49]);
+                        if (rowCols[50] != "" && typeof rowCols[50] != "undefined")
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseCoursework'] = Number(rowCols[50]);
+                        if (rowCols[51] != "" && typeof rowCols[51] != "undefined")
+                            mainJSON[rowCols[1]][rowCols[16]][rowCols[17]]['courseContact'] = Number(rowCols[51]);
                     }
                     alert('Finished Reading!');
                 };
@@ -200,35 +241,41 @@
                         if (typeof mainJSON[rowCols[0]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[0]][rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[0]][rowCols[1]][rowCols[2]] == 'undefined') continue;
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCode'] = rowCols[3];
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionScore'] = rowCols[4];
 
-                        //mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = rowCols[5];
-                        switch (parseInt(rowCols[5], 10)) {
+                        if (typeof rowCols[3] != "undefined" && rowCols[3] != "")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCode'] = String(rowCols[3]);
+                        if (rowCols[4] != "" && typeof rowCols[4] != "undefined")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionScore'] = Number(rowCols[4]);
+
+                        switch (Number(rowCols[5])) {
                             case 5: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Very High'; break;
                             case 4: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: High'; break;
                             case 3: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Medium'; break;
                             case 2: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Low'; break;
                             case 1: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = 'Satisfaction: Very Low'; break;
-                            default: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSatisfactionLevel'] = ''; break;
+                            default: break;
                         }
 
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSuccessScore'] = rowCols[6];
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseTypicalOffer'] = rowCols[7];
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsScore'] = rowCols[8];
+                        if (rowCols[6] != "" && typeof rowCols[6] != "undefined")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSuccessScore'] = Number(rowCols[6]);
+                        if (typeof rowCols[7] != "undefined" && rowCols[7] != "")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseTypicalOffer'] = String(rowCols[7]);
+                        if (rowCols[8] != "" && typeof rowCols[8] != "undefined")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsScore'] = Number(rowCols[8]);
 
-                        //mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = rowCols[9];
-                        switch (parseInt(rowCols[9], 10)) {
+                        switch (Number(rowCols[9])) {
                             case 5: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Very High'; break;
                             case 4: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: High'; break;
                             case 3: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Medium'; break;
                             case 2: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Low'; break;
                             case 1: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = 'Entry Standard: Very Low'; break;
-                            default: mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseEntryStandardsLevel'] = ''; break;
+                            default: break;
                         }
 
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSubjectRankingScore'] = rowCols[10];
-                        mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCauRating'] = rowCols[11];
+                        if (rowCols[10] != "" && typeof rowCols[10] != "undefined")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseSubjectRankingScore'] = Number(rowCols[10]);
+                        if (rowCols[11] != "" && typeof rowCols[11] != "undefined")
+                            mainJSON[rowCols[0]][rowCols[1]][rowCols[2]]['courseCauRating'] = Number(rowCols[11]);
                     }
                     alert('Finished Reading!');
                 };
@@ -246,10 +293,14 @@
                         if (typeof mainJSON[rowCols[1]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[1]][rowCols[2]] == 'undefined') continue;
                         if (typeof mainJSON[rowCols[1]][rowCols[2]][rowCols[3]] == 'undefined') continue;
+
+                        if (rowCols[11] == "" || typeof rowCols[11] == "undefined") continue;
+                        rowCols[11] = Number(rowCols[11]);
+
                         if (typeof mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] == 'undefined') {
-                            mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] = parseInt(rowCols[11], 10);
-                        } else if (mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] < parseInt(rowCols[11], 10)) {
-                            mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] = parseInt(rowCols[11], 10);
+                            mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] = rowCols[11];
+                        } else if (mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] < rowCols[11]) {
+                            mainJSON[rowCols[1]][rowCols[2]][rowCols[3]]['courseDuration'] = rowCols[11];
                         }
                     }
                     alert('Finished Reading!');
